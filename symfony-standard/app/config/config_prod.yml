@@ -1,0 +1,32 @@
+imports:
+    - { resource: config.yml }
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:    group
+            members: [streamed, fingercrossed]
+        streamed:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: info
+        fingercrossed:
+            type:         fingers_crossed
+            action_level: critical
+            handler:      buffered
+        buffered:
+            type:    buffer
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: %error_mail_sender%
+            to_email:   ddt-monitoring@getunik.com
+            subject:    %error_mail_subject%
+            level:      debug
+
