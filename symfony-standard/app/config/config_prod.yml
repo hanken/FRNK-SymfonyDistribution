@@ -10,23 +10,10 @@ imports:
 monolog:
     handlers:
         main:
-            type:    group
-            members: [streamed, fingercrossed]
-        streamed:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
-            level: info
-        fingercrossed:
-            type:         fingers_crossed
-            action_level: critical
-            handler:      buffered
-        buffered:
-            type:    buffer
-            handler: swift
-        swift:
-            type:       swift_mailer
-            from_email: %error_mail_sender%
-            to_email:   ddt-monitoring@getunik.com
-            subject:    %error_mail_subject%
-            level:      debug
-
+            level: debug

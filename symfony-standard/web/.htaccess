@@ -1,9 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{HTTP_HOST} ^symfony.servi
-    RewriteRule ^(.*)$ app_dev.php [QSA,L]
+
+    #<IfModule mod_vhost_alias.c>
+    #    RewriteBase /
+    #</IfModule>
 
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ app.php [QSA,L]
+    RewriteRule ^(.*)$ app_dev.php [QSA,L]
 </IfModule>

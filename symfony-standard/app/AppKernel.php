@@ -16,15 +16,14 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-	    new FRNK\ShellExtensionBundle\FRNKShellExtensionBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-
             $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
-	    $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
-	    $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
+            $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
@@ -38,12 +37,12 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 
-    protected function getContainerBaseClass()
-    {
-      if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-          return '\JMS\DebuggingBundle\DependencyInjection\TraceableContainer';
-      }
+	protected function getContainerBaseClass()
+{
+    if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        return '\JMS\DebuggingBundle\DependencyInjection\TraceableContainer';
+    }
 
-      return parent::getContainerBaseClass();
-    } 
+    return parent::getContainerBaseClass();
+}
 }
